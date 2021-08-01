@@ -54,6 +54,6 @@
     "import/first": "warn",
     "react/jsx-uses-react": "error",
     "react/jsx-uses-vars": "error",
-    "typeof": false 
+    "typeof": 0
   }
 }
