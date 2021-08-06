@@ -1,4 +1,3 @@
-/* eslint-disable react/jsx-key */
 import React from "react";
 import { Row, Col } from "react-bootstrap";
 import Product from "../components/Product";
@@ -9,7 +8,7 @@ const HomeScreen = () => {
       <h1>Latest Products</h1>
       <Row>
         {products.map((product) => (
-          <Col sm={12} md={6} lg={4} lx={3}>
+          <Col key={3} sm={12} md={6} lg={4} lx={3}>
             <Product product={product} />
           </Col>
         ))}
