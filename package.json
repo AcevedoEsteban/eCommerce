@@ -1,0 +1,22 @@
+{
+  "name": "propshop",
+  "version": "1.0.0",
+  "description": "Mern shopping cart app",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AcevedoEsteban/eCommerce.git"
+  },
+  "author": "Esteban Acevedo",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/AcevedoEsteban/eCommerce/issues"
+  },
+  "homepage": "https://github.com/AcevedoEsteban/eCommerce#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
