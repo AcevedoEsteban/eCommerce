@@ -4,12 +4,12 @@ import Product from "../components/Product";
 import axios from "axios";
 const HomeScreen = () => {
   // eslint-disable-next-line no-unused-vars
-  const [products, setsProducts] = useState([]);
+  const [products, setProducts] = useState([]);
 
   useEffect(() => {
     const fetchProducts = async () => {
       const { data } = await axios.get("/api/products");
-      setsProducts(data);
+      setProducts(data);
     };
     fetchProducts();
   }, []);
