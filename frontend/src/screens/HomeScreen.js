@@ -1,10 +1,18 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Row, Col } from "react-bootstrap";
 import Product from "../components/Product";
-
+import axios from "axios";
 const HomeScreen = () => {
   // eslint-disable-next-line no-unused-vars
   const [products, setsProducts] = useState([]);
+
+  useEffect(() => {
+    const fetchProducts = async () => {
+      const { data } = await axios.get("/api/products");
+      setsProducts(data);
+    };
+    fetchProducts();
+  }, []);
   return (
     <>
       <h1>Latest Products</h1>
