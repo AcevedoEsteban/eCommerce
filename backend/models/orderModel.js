@@ -22,14 +22,52 @@ const orderSchema = mongoose.Schema(
     ],
     shippingAddress: {
       address: {
-        type: String,
-        require: true,
+        address: { type: String, require: true },
+        city: { type: String, require: true },
+        postalCode: { type: String, require: true },
+        country: { type: String, require: true },
       },
     },
-    isAdmin: {
+    payementMethod: {
+      type: String,
+      require: true,
+    },
+    payementResult: {
+      id: { type: String },
+      status: { type: String },
+      update_time: { type: String },
+      eamil_address: { type: String },
+    },
+    taxPrice: {
+      type: Number,
+      require: true,
+      default: 0.0,
+    },
+    shippingPrice: {
+      type: Number,
+      require: true,
+      default: 0.0,
+    },
+    totalPrice: {
+      type: Number,
+      require: true,
+      default: 0.0,
+    },
+    isPaid: {
       type: Boolean,
       require: true,
       default: false,
+    },
+    paidAt: {
+      type: Date,
+    },
+    isDelivered: {
+      type: Boolean,
+      require: true,
+      default: false,
+    },
+    deliveredAt: {
+      type: Date,
     },
   },
   {
@@ -37,5 +75,5 @@ const orderSchema = mongoose.Schema(
   }
 );
 
-const User = mongoose.model("User", orderSchema);
-export default User;
+const Order = mongoose.model("Order", orderSchema);
+export default Order;
