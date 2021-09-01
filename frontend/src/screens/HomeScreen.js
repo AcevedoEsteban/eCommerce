@@ -1,8 +1,9 @@
 import React, { useEffect } from "react";
-// eslint-disable-next-line no-unused-vars
 import { useDispatch, useSelector } from "react-redux";
 import { Row, Col } from "react-bootstrap";
 import Product from "../components/Product";
+import Message from "../components/Message";
+import Loader from "../components/Loader";
 import { listProducts } from "../actions/productActions";
 
 const HomeScreen = () => {
@@ -18,9 +19,9 @@ const HomeScreen = () => {
     <>
       <h1>Latest Products</h1>
       {loading ? (
-        <h2>loading</h2>
+        <Loader />
       ) : error ? (
-        <h3>{error}</h3>
+        <Message variant="danger">{error}</Message>
       ) : (
         <Row>
           {products.map((product) => (
