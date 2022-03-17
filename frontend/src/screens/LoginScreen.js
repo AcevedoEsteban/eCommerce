@@ -1,6 +1,3 @@
-/* eslint-disable no-undef */
-/* eslint-disable no-unused-vars */
-/* eslint-disable react/prop-types */
 
 import React, {useState, useEffect} from 'react'
 import { Link } from 'react-router-dom'
@@ -12,20 +9,36 @@ import FormContainer from '../components/FormContainer'
 import { login } from '../actions/userActions'
 
 
-const LoginScreen = ({ location }) => {
-const [email, setEmail] = useState(' ')
+// eslint-disable-next-line react/prop-types
+const LoginScreen = ({ location, history }) => {
+const [email, setEmail] = useState('')
 const [password, setPassword] = useState('')
 
+const dispatch = useDispatch()
+
+const userLogin = useSelector((state) => state.userLogin)
+const { loading, error ,userInfo } = userLogin
+
+// eslint-disable-next-line react/prop-types
 const redirect= location.search ? location.search.split('=')[1] : '/'
+
+useEffect(() => {
+    if(userInfo) {
+        // eslint-disable-next-line react/prop-types
+        history.push(redirect)
+    }
+}, [history, userInfo, redirect])
 
 const submitHandler = (e) => {
     e.preventDefault()
-    //dispatch login
+    dispatch(login(email,password))    
 }
 
   return (
     <FormContainer>
           <h1>Sign In</h1>
+          {error && <Message variant='danger'>{error} </Message>}
+          {loading && <Loader/>}
       <Form onSubmit={submitHandler}>
               <Form.Group controlId='email'>
                   <Form.Label>Email Address</Form.Label>
@@ -47,7 +60,7 @@ const submitHandler = (e) => {
           </Form>
           <Row className='py-3'>
               <Col>
-              New Here? create account here <Link to={redirect ? `/register?redirect=${redirect}` : '/register'}> Register</Link> 
+               New Customer? <Link to={redirect ? `/register?redirect=${redirect}` : '/register'}> Register</Link> 
               </Col>
                </Row>
                   </FormContainer>
