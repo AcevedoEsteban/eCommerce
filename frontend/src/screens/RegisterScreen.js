@@ -15,7 +15,7 @@ const [name, setName] = useState('')
 const [email, setEmail] = useState('')
 const [password, setPassword] = useState('')
 const [confirmPassword, setConfirmPassword] = useState('')
-const [message, setMessage] = useState('')
+const [message, setMessage] = useState(null)
 
 const dispatch = useDispatch()
 
@@ -49,7 +49,7 @@ const submitHandler = (e) => {
           {error && <Message variant='danger'>{error} </Message>}
           {loading && <Loader/>}
       <Form onSubmit={submitHandler}>
-      <Form.Group controlId='email'>
+      <Form.Group controlId='name'>
           
                   <Form.Label>Name</Form.Label>
                   <Form.Control type='name' 
@@ -78,7 +78,7 @@ const submitHandler = (e) => {
               <Form.Group controlId='confirmPassword'>
                   <Form.Label>Confirm Password </Form.Label>
                   <Form.Control type='password' 
-                  placeholder='confirm password' value={password}
+                  placeholder='Confirm password' value={confirmPassword}
                   onChange={(e) => setConfirmPassword(e.target.value)}
                   ></Form.Control>
               </Form.Group>
@@ -89,7 +89,7 @@ const submitHandler = (e) => {
           </Form>
           <Row className='py-3'>
               <Col>
-               have account?
+               have account?{' '}
                 <Link to={redirect ? `/login?redirect=${redirect}` : '/login'}> login</Link> 
               </Col>
                </Row>
