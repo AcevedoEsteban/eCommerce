@@ -5,12 +5,11 @@ import {Form, Button, Row, Col} from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
 import Message from '../components/Message'
 import Loader from '../components/Loader'
-import FormContainer from '../components/FormContainer'
-import { register } from '../actions/userActions'
+import { getUserDetails } from '../actions/userActions'
 
 
 // eslint-disable-next-line react/prop-types
-const RegisterScreen = ({ location, history }) => {
+const ProfileScreen = ({ location, history }) => {
 const [name, setName] = useState('')
 const [email, setEmail] = useState('')
 const [password, setPassword] = useState('')
@@ -19,11 +18,11 @@ const [message, setMessage] = useState(null)
 
 const dispatch = useDispatch()
 
-const userRegister = useSelector((state) => state.userRegister)
-const { loading, error ,userInfo } = userRegister
+const userDetails = useSelector((state) => state.userDetails)
+const { loading, error ,user } = userDetails
 
-// eslint-disable-next-line react/prop-types
-const redirect= location.search ? location.search.split('=')[1] : '/'
+const userLogin = useSelector((state) => state.userLogin)
+const { userInfo } = userLogin
 
 useEffect(() => {
     if(userInfo) {
@@ -97,4 +96,4 @@ const submitHandler = (e) => {
   )
 }
 
-export default RegisterScreen
+export default ProfileScreen
