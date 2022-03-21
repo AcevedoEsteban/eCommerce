@@ -8,6 +8,9 @@ import Loader from '../components/Loader'
 import { getUserDetails } from '../actions/userActions'
 
 
+
+// eslint-disable-next-line react/prop-types
+// eslint-disable-next-line no-unused-vars
 // eslint-disable-next-line react/prop-types
 const ProfileScreen = ({ location, history }) => {
 const [name, setName] = useState('')
@@ -25,11 +28,18 @@ const userLogin = useSelector((state) => state.userLogin)
 const { userInfo } = userLogin
 
 useEffect(() => {
-    if(userInfo) {
+    if(!userInfo) {
         // eslint-disable-next-line react/prop-types
-        history.push(redirect)
+        history.push('/login')
+    }else{
+if(!user.name){
+    dispatch(getUserDetails('profile'))
+    }else{
+    setName(user.name)
+setEmail(user.email)
+}
     }
-}, [history, userInfo, redirect])
+}, [dispatch, history, userInfo])
 
 const submitHandler = (e) => {
     e.preventDefault()
@@ -37,8 +47,8 @@ const submitHandler = (e) => {
     setMessage('passwords do not match ')
     }else {
 
-        dispatch(register(name, email, password))
-    }
+//DISPATCH UPDATE PROFILE    
+}
 }
 
   return (
