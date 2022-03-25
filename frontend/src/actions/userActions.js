@@ -119,7 +119,7 @@ export const getUserDetails = (id) => async (dispatch, getState) => {
     dispatch({
       type: USER_DETAILS_FAIL,
       payload:
-        error.response && error.response.data
+        error.response && error.response.data.message
           ? error.response.data.message
           : error.message,
     });
