@@ -1,13 +1,23 @@
+/* eslint-disable react/prop-types */
 import React, { useState } from "react";
 import { Form, Button } from "react-bootstrap";
-import { useDispatch, useSelector } from "react-redux";
+//import { useDispatch, useSelector } from "react-redux";
 import FormContainer from "../components/FormContainer";
 
+// eslint-disable-next-line no-unused-vars
 const ShippingScreen = ({ history }) => {
+  const cart = useSelector((state) => state.cart);
+  const { shippingAddress } = cart;
+
   const [address, setAddress] = useState("");
   const [city, setCity] = useState("");
   const [postalCode, setPostalCode] = useState("");
   const [country, setCountry] = useState("");
+
+  const submitHandler = (e) => {
+    e.preventDefault();
+    console.log("submit");
+  };
 
   return (
     <FormContainer>
