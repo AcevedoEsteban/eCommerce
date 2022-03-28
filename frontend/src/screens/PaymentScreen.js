@@ -30,27 +30,19 @@ const PaymentScreen = ({ history }) => {
       <Form onSubmit={submitHandler}>
         <Form.Group>
           <Form.Label as="legend">Select Method</Form.Label>
+          <Col>
+            <Form.Check
+              tpe="radio"
+              label="Paypal or Credit Card"
+              id="Paypal"
+              name="paymentMethod"
+              value="Paypal"
+              checked
+              onChange={(e) => setPaymentMethod(e.targert.value)}
+            ></Form.Check>
+          </Col>
         </Form.Group>
-        <Col>
-          <Form.Check
-            tpe="radio"
-            label="Paypal or Credit Card"
-            id="Paypal"
-            name="paymentMethod"
-            value="Paypal"
-            checked
-            onChange={(e) => setPaymentMethod(e.targert.value)}
-          ></Form.Check>
 
-          <Form.Check
-            tpe="radio"
-            label="Stripe"
-            id="Stripe"
-            name="paymentMethod"
-            value="Stripe"
-            onChange={(e) => setPaymentMethod(e.targert.value)}
-          ></Form.Check>
-        </Col>
         <Button type="submit" variant="primary">
           Continue
         </Button>
@@ -60,3 +52,13 @@ const PaymentScreen = ({ history }) => {
 };
 
 export default PaymentScreen;
+{
+  /* <Form.Check
+tpe="radio"
+label="Venmo"
+id="Venmo"
+name="paymentMethod"
+value="Venmo"
+onChange={(e) => setPaymentMethod(e.targert.value)}
+></Form.Check> */
+}
