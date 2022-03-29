@@ -21,10 +21,30 @@ const PlaceOrderScreen = () => {
                 {cart.shippingAddress.postalCode},{cart.shippingAddress.country}
               </p>
             </ListGroup.Item>
+
             <ListGroup.Item>
               <h2>Payment Method</h2>
               <strong>Method: </strong>
               {cart.paymentMethod}
+            </ListGroup.Item>
+
+            <ListGroup.Item>
+              <h2>Order Items</h2>
+              {cart.cartItems.length === 0 ? (
+                <Message>Your cart is empty</Message>
+              ) : (
+                <ListGroup variant="flush">
+                  {cart.cartItems.map((item, index) => (
+                    <ListGroup.Item key={index}>
+                      <Row>
+                        <Col md={1}>
+                          <Image src={item.image} alt={item.name} />
+                        </Col>
+                      </Row>
+                    </ListGroup.Item>
+                  ))}
+                </ListGroup>
+              )}
             </ListGroup.Item>
           </ListGroup>
         </Col>
