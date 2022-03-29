@@ -4,6 +4,7 @@ import { Button, Row, Col, ListGroup, Image, Card } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import Message from "../components/Message";
 import CheckoutSteps from "../components/CheckoutSteps";
+import { Link } from "react-router-dom";
 
 const PlaceOrderScreen = () => {
   const cart = useSelector((state) => state.cart);
@@ -38,7 +39,20 @@ const PlaceOrderScreen = () => {
                     <ListGroup.Item key={index}>
                       <Row>
                         <Col md={1}>
-                          <Image src={item.image} alt={item.name} />
+                          <Image
+                            src={item.image}
+                            alt={item.name}
+                            fluid
+                            rounded
+                          />
+                        </Col>
+                        <Col>
+                          <Link to={`/product/${item.product}`}>
+                            {item.name}
+                          </Link>
+                        </Col>
+                        <Col md={4}>
+                          {item.qty} x ${item.price} = ${item.qty * item.price}
                         </Col>
                       </Row>
                     </ListGroup.Item>
@@ -54,10 +68,3 @@ const PlaceOrderScreen = () => {
 };
 
 export default PlaceOrderScreen;
-{
-  /* <ListGroup.Item>
-<h2>Payment Method</h2>
-<strong>Method: </strong>
-{cart.paymentMethod}
-</ListGroup.Item> */
-}
