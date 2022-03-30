@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import React, { useState } from "react";
+import React, { useEffect } from "react";
 import { Button, Row, Col, ListGroup, Image, Card } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import Message from "../components/Message";
@@ -7,7 +7,8 @@ import CheckoutSteps from "../components/CheckoutSteps";
 import { Link } from "react-router-dom";
 import { createOrder } from "../actions/orderAction";
 
-const PlaceOrderScreen = () => {
+// eslint-disable-next-line react/prop-types
+const PlaceOrderScreen = ({ history }) => {
   const cart = useSelector((state) => state.cart);
   const dispatch = useDispatch();
 
@@ -27,6 +28,16 @@ const PlaceOrderScreen = () => {
     Number(cart.taxPrice)
   ).toFixed(2);
 
+  const orderCreate = useSelector((state) => state.orderCreate);
+  const { order, success, error } = orderCreate;
+
+  useEffect(() => {
+    if (success) {
+      // eslint-disable-next-line react/prop-types
+      history.push(`/order/${order._id}`);
+    }
+  }, [history, success]);
+
   const placeOrderHandler = () => {
     dispatch(createOrder)({
       orderItems: cart.cartItems,
@@ -35,8 +46,6 @@ const PlaceOrderScreen = () => {
       shippingPrice: cart.shippingPrice,
       taxPrice: cart.taxPrice,
       totalPrice: cart.totalPrice,
-
-
     });
   };
   return (
@@ -122,6 +131,9 @@ const PlaceOrderScreen = () => {
                   <Col>Total</Col>
                   <Col>${cart.totalPrice}</Col>
                 </Row>
+              </ListGroup.Item>
+              <ListGroup.Item>
+                {error && <Message variant="danger">{error}</Message>}
               </ListGroup.Item>
               <ListGroup.Item>
                 <Button
