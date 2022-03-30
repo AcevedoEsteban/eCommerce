@@ -5,9 +5,11 @@ import { useDispatch, useSelector } from "react-redux";
 import Message from "../components/Message";
 import CheckoutSteps from "../components/CheckoutSteps";
 import { Link } from "react-router-dom";
+import { createOrder } from "../actions/orderAction";
 
 const PlaceOrderScreen = () => {
   const cart = useSelector((state) => state.cart);
+  const dispatch = useDispatch();
 
   //calculate Prices
   const addDecimals = (num) => {
@@ -26,7 +28,16 @@ const PlaceOrderScreen = () => {
   ).toFixed(2);
 
   const placeOrderHandler = () => {
-    console.log("order");
+    dispatch(createOrder)({
+      orderItems: cart.cartItems,
+      shippingAddress: cart.shippingAddress,
+      paymentMethod: cart.paymentMethod,
+      shippingPrice: cart.shippingPrice,
+      taxPrice: cart.taxPrice,
+      totalPrice: cart.totalPrice,
+
+
+    });
   };
   return (
     <>
