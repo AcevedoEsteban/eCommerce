@@ -9,8 +9,8 @@ import { createOrder } from "../actions/orderAction";
 
 // eslint-disable-next-line react/prop-types
 const PlaceOrderScreen = ({ history }) => {
-  const cart = useSelector((state) => state.cart);
   const dispatch = useDispatch();
+  const cart = useSelector((state) => state.cart);
 
   //calculate Prices
   const addDecimals = (num) => {
@@ -39,14 +39,16 @@ const PlaceOrderScreen = ({ history }) => {
   }, [history, success]);
 
   const placeOrderHandler = () => {
-    dispatch(createOrder)({
-      orderItems: cart.cartItems,
-      shippingAddress: cart.shippingAddress,
-      paymentMethod: cart.paymentMethod,
-      shippingPrice: cart.shippingPrice,
-      taxPrice: cart.taxPrice,
-      totalPrice: cart.totalPrice,
-    });
+    dispatch(
+      createOrder({
+        orderItems: cart.cartItems,
+        shippingAddress: cart.shippingAddress,
+        paymentMethod: cart.paymentMethod,
+        shippingPrice: cart.shippingPrice,
+        taxPrice: cart.taxPrice,
+        totalPrice: cart.totalPrice,
+      })
+    );
   };
   return (
     <>
