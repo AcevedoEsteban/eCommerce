@@ -28,11 +28,11 @@ const orderSchema = mongoose.Schema(
         country: { type: String, require: true },
       },
     },
-    payementMethod: {
+    paymentMethod: {
       type: String,
       require: true,
     },
-    payementResult: {
+    paymentResult: {
       id: { type: String },
       status: { type: String },
       update_time: { type: String },
