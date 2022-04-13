@@ -62,7 +62,7 @@ const ShippingScreen = ({ history }) => {
           ></Form.Control>
         </Form.Group>
 
-        <Form.Group controlId="city">
+        {/* <Form.Group controlId="city">
           <Form.Label>City</Form.Label>
           <Form.Control
             type="text"
@@ -71,7 +71,7 @@ const ShippingScreen = ({ history }) => {
             required
             onChange={(e) => setCity(e.target.value)}
           ></Form.Control>
-        </Form.Group>
+        </Form.Group> */}
 
         <Form.Group controlId="country">
           <Form.Label>Country</Form.Label>
