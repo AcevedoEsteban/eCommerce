@@ -13,6 +13,14 @@ const OrderScreen = ({ match }) => {
   const orderId = match.params.id;
   const dispatch = useDispatch();
 
+  //calculate Prices
+  const addDecimals = (num) => {
+    return (Math.round(num * 100) / 100).toFixed(2);
+  };
+  order.itemsPrice = addDecimals(
+    order.orderItems.reduce((acc, item) => acc + item.price * item.qty, 0)
+  );
+
   const orderDetails = useSelector((state) => state.orderDetails);
   const { order, loading, error } = orderDetails;
 
