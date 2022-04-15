@@ -16,19 +16,21 @@ const OrderScreen = ({ match }) => {
   const orderDetails = useSelector((state) => state.orderDetails);
   const { order, loading, error } = orderDetails;
 
-  // if (!loading) {
-  //   //calculate Prices
-  //   const addDecimals = (num) => {
-  //     return (Math.round(num * 100) / 100).toFixed(2);
-  //   };
-  //   order.itemsPrice = addDecimals(
-  //     order.orderItems.reduce((acc, item) => acc + item.price * item.qty, 0)
-  //   );
-  // }
+  if (!loading) {
+    //calculate Prices
+    const addDecimals = (num) => {
+      return (Math.round(num * 100) / 100).toFixed(2);
+    };
+    order.itemsPrice = addDecimals(
+      order.orderItems.reduce((acc, item) => acc + item.price * item.qty, 0)
+    );
+  }
 
   useEffect(() => {
-    dispatch(getOrderDetails(orderId));
-  }, []);
+    if (!order || order._id !== orderId) {
+      dispatch(getOrderDetails(orderId));
+    }
+  }, [order, orderId]);
 
   return loading ? (
     <Loader />
@@ -43,7 +45,7 @@ const OrderScreen = ({ match }) => {
             <ListGroup.Item>
               <h2>Shipping</h2>
               <p>
-                <strong>Name:</strong>
+                <strong>Name: </strong>
                 {order.user.name}
               </p>
               <p>
