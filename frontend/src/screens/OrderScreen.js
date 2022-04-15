@@ -16,15 +16,15 @@ const OrderScreen = ({ match }) => {
   const orderDetails = useSelector((state) => state.orderDetails);
   const { order, loading, error } = orderDetails;
 
-  if (!loading) {
-    //calculate Prices
-    const addDecimals = (num) => {
-      return (Math.round(num * 100) / 100).toFixed(2);
-    };
-    order.itemsPrice = addDecimals(
-      order.orderItems.reduce((acc, item) => acc + item.price * item.qty, 0)
-    );
-  }
+  // if (!loading) {
+  //   //calculate Prices
+  //   const addDecimals = (num) => {
+  //     return (Math.round(num * 100) / 100).toFixed(2);
+  //   };
+  //   order.itemsPrice = addDecimals(
+  //     order.orderItems.reduce((acc, item) => acc + item.price * item.qty, 0)
+  //   );
+  // }
 
   useEffect(() => {
     dispatch(getOrderDetails(orderId));
@@ -43,7 +43,7 @@ const OrderScreen = ({ match }) => {
             <ListGroup.Item>
               <h2>Shipping</h2>
               <p>
-                <strong>Name: </strong>
+                <strong>Name:</strong>
                 {order.user.name}
               </p>
               <p>
@@ -56,11 +56,27 @@ const OrderScreen = ({ match }) => {
                 {order.shippingAddress.postalCode},
                 {order.shippingAddress.country}
               </p>
+              {order.isDelivered ? (
+                <Message variant="success">
+                  Delivered on {order.deliveredAt}
+                </Message>
+              ) : (
+                <Message variant="danger">not Delivered</Message>
+              )}
             </ListGroup.Item>
+
             <ListGroup.Item>
               <h2>Payment Method</h2>
-              <strong>Method: </strong>
-              {order.paymentMethod}
+
+              <p>
+                <strong>Method: </strong>
+                {order.paymentMethod}
+              </p>
+              {order.isPaid ? (
+                <Message variant="success">Paid on {order.paidAt}</Message>
+              ) : (
+                <Message variant="danger">not paid</Message>
+              )}
             </ListGroup.Item>
 
             <ListGroup.Item>
