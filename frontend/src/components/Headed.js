@@ -1,24 +1,35 @@
 import React from "react";
-import {useDispatch, useSelector} from 'react-redux'
+import { useDispatch, useSelector } from "react-redux";
 import { LinkContainer } from "react-router-bootstrap";
-import { Container, Navbar, Nav, NavDropdown } from "react-bootstrap"
-import {logout} from '../actions/userActions'
+import { Container, Navbar, Nav, NavDropdown } from "react-bootstrap";
+import { logout } from "../actions/userActions";
 
 const Headed = () => {
   // eslint-disable-next-line no-unused-vars
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
-  const userLogin = useSelector((state) => state.userLogin)
-  const {userInfo} = userLogin
+  const userLogin = useSelector((state) => state.userLogin);
+  const { userInfo } = userLogin;
   const logoutHandler = () => {
-    dispatch(logout())
-  }
+    dispatch(logout());
+  };
   return (
     <header>
-      <Navbar bg="dark" variant="dark" expand="lg" collapseOnSelect>
+      <Navbar
+        style={{
+          color: "##00FFFF",
+          margin: "1%",
+          boxShadow: "5px 5px 3px rgba(46, 46, 46, 0.62)",
+          backgroundColor: "#fff",
+        }}
+        bg="dark"
+        variant="dark"
+        expand="lg"
+        collapseOnSelect
+      >
         <Container>
           <LinkContainer to="/">
-            <Navbar.Brand>Pro-shop</Navbar.Brand>
+            <Navbar.Brand>Yacht Bay</Navbar.Brand>
           </LinkContainer>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
@@ -29,19 +40,21 @@ const Headed = () => {
                 </Nav.Link>
               </LinkContainer>
               {userInfo ? (
-              <NavDropdown title={userInfo.name} id ="username">
-                <LinkContainer to='/profile'>
-                  <NavDropdown.Item>Profile</NavDropdown.Item>
+                <NavDropdown title={userInfo.name} id="username">
+                  <LinkContainer to="/profile">
+                    <NavDropdown.Item>Profile</NavDropdown.Item>
+                  </LinkContainer>
+                  <NavDropdown.Item onClick={logoutHandler}>
+                    Logout
+                  </NavDropdown.Item>
+                </NavDropdown>
+              ) : (
+                <LinkContainer to="/login">
+                  <Nav.Link>
+                    <i className="fas fa-user"></i>Sign In
+                  </Nav.Link>
                 </LinkContainer>
-                <NavDropdown.Item onClick={logoutHandler}>Logout</NavDropdown.Item>
-                 </NavDropdown>
-              ) :
-              <LinkContainer to="/login">
-                <Nav.Link>
-                  <i className="fas fa-user"></i>Sign In
-                </Nav.Link>
-              </LinkContainer>
-              }  
+              )}
             </Nav>
           </Navbar.Collapse>
         </Container>
