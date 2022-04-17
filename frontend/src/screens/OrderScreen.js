@@ -7,7 +7,8 @@ import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import Message from "../components/Message";
 import Loader from "../components/Loader";
-import { getOrderDetails } from "../actions/orderAction";
+import { getOrderDetails, payOrder } from "../actions/orderAction";
+import { ORDER_PAY_RESET } from "../constants/orderConstants";
 
 // eslint-disable-next-line react/prop-types
 const OrderScreen = ({ match }) => {
@@ -45,7 +46,7 @@ const OrderScreen = ({ match }) => {
       document.body.appendChild(script);
     };
     if (!order || successPay) {
-      // if (!order || order._id !== orderId)
+      dispatch({ type: ORDER_PAY_RESET });
       dispatch(getOrderDetails(orderId));
     } else if (!order.isPaid) {
       if (!window.paypal) {
@@ -55,6 +56,12 @@ const OrderScreen = ({ match }) => {
       }
     }
   }, [dispatch, orderId, successPay, order]);
+
+  const successPaymentHandler = (paymentResult) => {
+    // eslint-disable-next-line no-console
+    console.log(paymentResult);
+    dispatch(payOrder(orderId, paymentResult));
+  };
 
   return loading ? (
     <Loader />
@@ -170,8 +177,15 @@ const OrderScreen = ({ match }) => {
               </ListGroup.Item>
               {!order.isPaid && (
                 <ListGroup.Item>
-                  {loadingPay && <Loader/>}
-                  {!sdkReady ?  }
+                  {loadingPay && <Loader />}
+                  {!sdkReady ? (
+                    <Loader />
+                  ) : (
+                    <PayPalButton
+                      amount={order.totalPrice}
+                      onSuccess={successPaymentHandler}
+                    />
+                  )}
                 </ListGroup.Item>
               )}
             </ListGroup>
