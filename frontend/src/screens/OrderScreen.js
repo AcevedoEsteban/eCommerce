@@ -14,7 +14,7 @@ import { ORDER_PAY_RESET } from "../constants/orderConstants";
 const OrderScreen = ({ match }) => {
   // eslint-disable-next-line react/prop-types
   const orderId = match.params.id;
-  const [sdkReady, setSdkReady] = useState(false);
+  const [sdkReady, setSdkReady] = useState();
   const dispatch = useDispatch();
 
   const orderDetails = useSelector((state) => state.orderDetails);
@@ -178,7 +178,7 @@ const OrderScreen = ({ match }) => {
               {!order.isPaid && (
                 <ListGroup.Item>
                   {loadingPay && <Loader />}
-                  {!sdkReady ? (
+                  {sdkReady ? (
                     <Loader />
                   ) : (
                     <PayPalButton
