@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import Message from "../components/Message";
 import Loader from "../components/Loader";
 import { getUserDetails, updateUserProfile } from "../actions/userActions";
-
+import { orderListMyOrders } from '../actions/orderAction'
 // eslint-disable-next-line react/prop-types
 // eslint-disable-next-line no-unused-vars
 // eslint-disable-next-line react/prop-types
@@ -26,6 +26,9 @@ const ProfileScreen = ({ location, history }) => {
 
   const userUpdateProfile = useSelector((state) => state.userUpdateProfile);
   const { success } = userUpdateProfile;
+
+  const orderListMy = useSelector((state) => state.orderListMy);
+  const { loading: loadingOrders, error: errorOrders, orders } = orderListMy;
 
   useEffect(() => {
     if (!userInfo) {
