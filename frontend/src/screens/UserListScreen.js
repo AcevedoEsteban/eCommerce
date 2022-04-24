@@ -6,14 +6,25 @@ import Message from "../components/Message";
 import Loader from "../components/Loader";
 import { listUsers } from "../actions/userActions";
 
-const UserListScreen = () => {
+// eslint-disable-next-line react/prop-types
+const UserListScreen = ({ history }) => {
   const dispath = useDispatch();
+
   const userList = useSelector((state) => state.userList);
   const { loading, error, users } = userList;
 
+  const userLogin = useSelector((state) => state.userLogin);
+  const { userInfo } = userLogin;
+
   useEffect(() => {
+    if (userInfo && userInfo.isAdmin) {
+      dispath(listUsers());
+    } else {
+      // eslint-disable-next-line react/prop-types
+      history.push("/login");
+    }
     dispath(listUsers());
-  }, [dispath]);
+  }, [dispath, history]);
 
   // eslint-disable-next-line no-unused-vars
   const deleteHandler = (id) => {
