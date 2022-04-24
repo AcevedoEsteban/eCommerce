@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import { LinkContainer } from "react-router-bootstrap";
 import { Button, Table } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import Message from "../components/Message";
 import Loader from "../components/Loader";
-import { listUser } from "../actions/userActions";
+import { listUsers } from "../actions/userActions";
 
 const UserListScreen = () => {
   const dispath = useDispatch();
@@ -12,11 +12,16 @@ const UserListScreen = () => {
   const { loading, error, users } = userList;
 
   useEffect(() => {
-    dispath(listUser());
+    dispath(listUsers());
   }, [dispath]);
+
+  // eslint-disable-next-line no-unused-vars
+  const deleteHandler = (id) => {
+    console.log("delete");
+  };
   return (
     <>
-      <h1>Userss</h1>
+      <h1>Users</h1>
       {loading ? (
         <Loader />
       ) : error ? (
@@ -44,6 +49,20 @@ const UserListScreen = () => {
                   ) : (
                     <i className="fas fa-times" style={{ color: "red" }}></i>
                   )}
+                </td>
+                <td>
+                  <LinkContainer to={`/user/${user._id}/edit`}>
+                    <Button variant="light" className="btn-sm">
+                      <i className="fas fa-edit"></i>
+                    </Button>
+                  </LinkContainer>
+                  <Button
+                    variant="danger"
+                    className="btn-sm"
+                    onClick={() => deleteHandler(user._id)}
+                  >
+                    <i className="fas fa-trash" />
+                  </Button>
                 </td>
               </tr>
             ))}
