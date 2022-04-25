@@ -4,11 +4,11 @@ import { Button, Table } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import Message from "../components/Message";
 import Loader from "../components/Loader";
-import { listUsers } from "../actions/userActions";
+import { listUsers, deleteUser } from "../actions/userActions";
 
 // eslint-disable-next-line react/prop-types
 const UserListScreen = ({ history }) => {
-  const dispath = useDispatch();
+  const dispatch = useDispatch();
 
   const userList = useSelector((state) => state.userList);
   const { loading, error, users } = userList;
@@ -16,19 +16,22 @@ const UserListScreen = ({ history }) => {
   const userLogin = useSelector((state) => state.userLogin);
   const { userInfo } = userLogin;
 
+  const userDelete = useSelector((state) => state.userDelete);
+  const { success: successDelete } = userDelete;
+
   useEffect(() => {
     if (userInfo && userInfo.isAdmin) {
-      dispath(listUsers());
+      dispatch(listUsers());
     } else {
       // eslint-disable-next-line react/prop-types
       history.push("/login");
     }
-    dispath(listUsers());
-  }, [dispath, history]);
+    dispatch(listUsers());
+  }, [dispatch, history, successDelete]);
 
   // eslint-disable-next-line no-unused-vars
   const deleteHandler = (id) => {
-    console.log("delete");
+    if (window.confirm("are you sure")) dispatch(deleteUser(id));
   };
   return (
     <>
