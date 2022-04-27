@@ -1,40 +1,56 @@
+/* eslint-disable react/prop-types */
 import React, { useEffect } from "react";
 import { LinkContainer } from "react-router-bootstrap";
 import { Button, Table, Row, Col } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import Message from "../components/Message";
 import Loader from "../components/Loader";
-import { listProductDetails, listProducts } from "../actions/productActions";
+import { listProducts } from "../actions/productActions";
 
 // eslint-disable-next-line react/prop-types
-const ProductListScreen = ({ history }) => {
+// eslint-disable-next-line no-unused-vars
+const ProductListScreen = ({ history, match }) => {
   const dispatch = useDispatch();
 
-  const userList = useSelector((state) => state.userList);
-  const { loading, error, users } = userList;
+  const productList = useSelector((state) => state.productList);
+  const { loading, error, products } = productList;
 
   const userLogin = useSelector((state) => state.userLogin);
   const { userInfo } = userLogin;
 
-  const userDelete = useSelector((state) => state.userDelete);
-  const { success: successDelete } = userDelete;
-
   useEffect(() => {
     if (userInfo && userInfo.isAdmin) {
-      dispatch(listUsers());
+      dispatch(listProducts());
     } else {
       // eslint-disable-next-line react/prop-types
       history.push("/login");
     }
-  }, [dispatch, history, successDelete, userInfo]);
+  }, [dispatch, history, userInfo]);
 
   // eslint-disable-next-line no-unused-vars
   const deleteHandler = (id) => {
-    if (window.confirm("are you sure")) dispatch(deleteUser(id));
+    if (window.confirm("are you sure")) {
+      //coment
+    }
+  };
+  // eslint-disable-next-line no-unused-vars
+  const createProductHandler = (product) => {
+    if (window.confirm("are you sure")) {
+      //coment
+    }
   };
   return (
     <>
-      <h1>Users</h1>
+      <Row className="align-items-center">
+        <Col>
+          <h1>Products</h1>
+        </Col>
+        <Col className="text-right">
+          <Button className="my-3" onClick={createProductHandler}>
+            <i className="fas fa-plus" /> Create Product
+          </Button>
+        </Col>
+      </Row>
       {loading ? (
         <Loader />
       ) : error ? (
@@ -44,41 +60,38 @@ const ProductListScreen = ({ history }) => {
           <tr>
             <th>ID</th>
             <th>NAME</th>
-            <th>EMAIL</th>
-            <th>ADMIN</th>
+            <th>PRICE</th>
+            <th>CATEGORY</th>
+            <th>BRAND</th>
             <th></th>
           </tr>
           <tbody>
-            {users.map((user) => (
-              <tr key={user._id}>
-                <td>{user._id}</td>
-                <td>{user.name}</td>
-                <td>
-                  <a href={`mailto:${user.email}`}>{user.email}</a>
-                </td>
-                <td>
-                  {user.isAdmin ? (
-                    <i className="fas fa-check" style={{ color: "green" }}></i>
-                  ) : (
-                    <i className="fas fa-times" style={{ color: "red" }}></i>
-                  )}
-                </td>
-                <td>
-                  <LinkContainer to={`/admin/user/${user._id}/edit`}>
-                    <Button variant="light" className="btn-sm">
-                      <i className="fas fa-edit"></i>
+            {products.map((product) => {
+              return (
+                <tr key={product._id}>
+                  <td>{product._id}</td>
+                  <td>{product.name}</td>
+                  <td>${product.price} </td>
+                  <td>{product.category}</td>
+                  <td>{product.brand}</td>
+
+                  <td>
+                    <LinkContainer to={`/admin/product/${product._id}/edit`}>
+                      <Button variant="light" className="btn-sm">
+                        <i className="fas fa-edit"></i>
+                      </Button>
+                    </LinkContainer>
+                    <Button
+                      variant="danger"
+                      className="btn-sm"
+                      onClick={() => deleteHandler(product._id)}
+                    >
+                      <i className="fas fa-trash" />
                     </Button>
-                  </LinkContainer>
-                  <Button
-                    variant="danger"
-                    className="btn-sm"
-                    onClick={() => deleteHandler(user._id)}
-                  >
-                    <i className="fas fa-trash" />
-                  </Button>
-                </td>
-              </tr>
-            ))}
+                  </td>
+                </tr>
+              );
+            })}
           </tbody>
         </Table>
       )}
