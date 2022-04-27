@@ -26,7 +26,6 @@ const UserListScreen = ({ history }) => {
       // eslint-disable-next-line react/prop-types
       history.push("/login");
     }
-    dispatch(listUsers());
   }, [dispatch, history, successDelete, userInfo]);
 
   // eslint-disable-next-line no-unused-vars
