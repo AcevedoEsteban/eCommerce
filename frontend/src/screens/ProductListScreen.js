@@ -5,7 +5,13 @@ import { Button, Table, Row, Col } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import Message from "../components/Message";
 import Loader from "../components/Loader";
-import { listProducts, deleteProduct } from "../actions/productActions";
+import {
+  // listProducts,
+  deleteProduct,
+  createProduct,
+} from "../actions/productActions";
+import { PRODUCT_CREATE_RESET } from "../constants/productConstants";
+
 // eslint-disable-next-line react/prop-types
 // eslint-disable-next-line no-unused-vars
 const ProductListScreen = ({ history, match }) => {
@@ -21,17 +27,37 @@ const ProductListScreen = ({ history, match }) => {
     success: successDelete,
   } = productDelete;
 
+  const productCreate = useSelector((state) => state.productCreate);
+  const {
+    loading: loadingCreate,
+    error: errorCreate,
+    success: successCreate,
+    product: createdProduct,
+  } = productCreate;
+
   const userLogin = useSelector((state) => state.userLogin);
   const { userInfo } = userLogin;
 
   useEffect(() => {
-    if (userInfo && userInfo.isAdmin) {
-      dispatch(listProducts());
-    } else {
-      // eslint-disable-next-line react/prop-types
+    dispatch({ type: PRODUCT_CREATE_RESET });
+
+    if (!userInfo.isAdmin) {
       history.push("/login");
+    } else {
+      if (successCreate) {
+        history.push(`/admin/product/${createdProduct._id}/edit`);
+      } else {
+        // dispatch(listProducts);
+      }
     }
-  }, [dispatch, history, userInfo, successDelete]);
+  }, [
+    dispatch,
+    history,
+    userInfo,
+    successDelete,
+    successCreate,
+    createdProduct,
+  ]);
 
   // eslint-disable-next-line no-unused-vars
   const deleteHandler = (id) => {
@@ -40,10 +66,8 @@ const ProductListScreen = ({ history, match }) => {
     }
   };
   // eslint-disable-next-line no-unused-vars
-  const createProductHandler = (product) => {
-    if (window.confirm("are you sure")) {
-      //coment
-    }
+  const createProductHandler = () => {
+    dispatch(createProduct());
   };
   return (
     <>
@@ -59,6 +83,8 @@ const ProductListScreen = ({ history, match }) => {
       </Row>
       {loadingDelete && <Loader />}
       {errorDelete && <Message variant="danger">{errorDelete}</Message>}
+      {loadingCreate && <Loader />}
+      {errorCreate && <Message variant="danger">{errorCreate}</Message>}
       {loading ? (
         <Loader />
       ) : error ? (
