@@ -94,7 +94,7 @@ const ProductEditScreen = ({ match, history }) => {
               <Form.Label>brand</Form.Label>
               <Form.Control
                 type="text"
-                placeholder="Enter brand url"
+                placeholder="Enter brand"
                 value={brand}
                 onChange={(e) => setBrand(e.target.value)}
               ></Form.Control>
@@ -104,24 +104,24 @@ const ProductEditScreen = ({ match, history }) => {
               <Form.Label>category</Form.Label>
               <Form.Control
                 type="text"
-                placeholder="Enter category url"
+                placeholder="Enter category"
                 value={category}
                 onChange={(e) => setCategory(e.target.value)}
               ></Form.Control>
             </Form.Group>
 
             <Form.Group controlId="countInStock">
-              <Form.Label>countInStock</Form.Label>
+              <Form.Label>Count in Stock</Form.Label>
               <Form.Control
-                type="text"
-                placeholder="Enter countInStock url"
+                type="number"
+                placeholder="Enter Count in Stock"
                 value={countInStock}
                 onChange={(e) => setCountInStock(e.target.value)}
               ></Form.Control>
             </Form.Group>
 
             <Form.Group controlId="description">
-              <Form.Label>description</Form.Label>
+              <Form.Label>Description</Form.Label>
               <Form.Control
                 type="text"
                 placeholder="Enter description url"
