@@ -97,8 +97,6 @@ export const createProduct = () => async (dispatch, getState) => {
       type: PRODUCT_CREATE_SUCCESS,
       payload: data,
     });
-
-    localStorage.setItem("userInfo", JSON.stringify(data));
   } catch (error) {
     dispatch({
       type: PRODUCT_CREATE_FAIL,

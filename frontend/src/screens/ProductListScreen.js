@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import Message from "../components/Message";
 import Loader from "../components/Loader";
 import {
-  // listProducts,
+  listProducts,
   deleteProduct,
   createProduct,
 } from "../actions/productActions";
@@ -40,14 +40,13 @@ const ProductListScreen = ({ history, match }) => {
 
   useEffect(() => {
     dispatch({ type: PRODUCT_CREATE_RESET });
-
-    if (!userInfo.isAdmin) {
+    if (!userInfo || !userInfo.isAdmin) {
       history.push("/login");
     } else {
       if (successCreate) {
         history.push(`/admin/product/${createdProduct._id}/edit`);
       } else {
-        // dispatch(listProducts);
+        dispatch(listProducts());
       }
     }
   }, [
