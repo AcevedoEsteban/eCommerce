@@ -44,7 +44,6 @@ const OrderListScreen = ({ history }) => {
           <tr>
             <th>ORDER ID</th>
             <th>USER</th>
-            {/* <th>ADMIN</th> */}
             <th>DATE</th>
             <th>TOTAL</th>
             <th>PAID</th>
@@ -58,7 +57,7 @@ const OrderListScreen = ({ history }) => {
                   <td>{order._id}</td>
                   <td>{order.user && order.user.name}</td>
                   {/* <td>
-                    {order.user.isAdmin ? (
+                    {order.user && order.user.isAdmin ? (
                       <i
                         className="fas fa-check"
                         style={{ color: "green" }}
@@ -79,7 +78,7 @@ const OrderListScreen = ({ history }) => {
                   </td>
                   <td>
                     {order.isDelivered ? (
-                      order.deliveredAt.subString(0, 10)
+                      order.deliveredAt
                     ) : (
                       <i className="fas fa-times" style={{ color: "red" }}></i>
                     )}

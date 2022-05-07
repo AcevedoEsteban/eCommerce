@@ -143,9 +143,8 @@ const ProfileScreen = ({ location, history }) => {
                   </td>
                   <td>
                     {order.isDelivered ? (
-                      order.deliveredAt.substring(0, 10)
+                      order.deliveredAt
                     ) : (
-                      // eslint-disable-next-line no-undef
                       <i className="fas fa-times" style={{ color: "red" }}></i>
                     )}
                   </td>

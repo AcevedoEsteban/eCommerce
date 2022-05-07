@@ -129,7 +129,7 @@ export const deliverOrder = (order) => async (dispatch, getState) => {
     dispatch({
       type: ORDER_DELIVER_REQUEST,
     });
-    //destructor in a destructor
+
     const {
       userLogin: { userInfo },
     } = getState();
@@ -139,6 +139,7 @@ export const deliverOrder = (order) => async (dispatch, getState) => {
         Authorization: `Bearer ${userInfo.token}`,
       },
     };
+
     const { data } = await axios.put(
       `/api/orders/${order._id}/deliver`,
       {},

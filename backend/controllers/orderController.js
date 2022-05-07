@@ -1,6 +1,6 @@
 import asyncHandler from "express-async-handler";
 import Order from "../models/orderModel.js";
-
+import moment from "moment";
 // @desc    Create new order
 // @route   POST /api/orders
 // @access  Private
@@ -102,7 +102,7 @@ const updateOrderDelivered = asyncHandler(async (req, res) => {
 
   if (order) {
     order.isDelivered = true;
-    order.deliverdAt = Date.now();
+    order.deliveredAt = Date.now();
 
     const updatedOrder = await order.save();
     res.json(updatedOrder);
