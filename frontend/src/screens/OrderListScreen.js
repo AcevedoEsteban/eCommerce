@@ -4,7 +4,7 @@ import { Button, Table } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import Message from "../components/Message";
 import Loader from "../components/Loader";
-import { listOrders } from "../actions/orderAction";
+import { listOrders } from "../actions/orderActions";
 
 // eslint-disable-next-line react/prop-types
 const OrderListScreen = ({ history }) => {

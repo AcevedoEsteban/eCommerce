@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import Message from "../components/Message";
 import CheckoutSteps from "../components/CheckoutSteps";
 import { Link } from "react-router-dom";
-import { createOrder } from "../actions/orderAction";
+import { createOrder } from "../actions/orderActions";
 
 // eslint-disable-next-line react/prop-types
 const PlaceOrderScreen = ({ history }) => {
