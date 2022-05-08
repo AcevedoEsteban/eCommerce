@@ -40,13 +40,13 @@ const ProfileScreen = ({ location, history }) => {
       if (!user.name || !user.name || success) {
         dispatch({ type: USER_UPDATE_PROFILE_RESET });
         dispatch(getUserDetails("profile"));
-        dispatch(listMyOrders());
+        dispatch(listMyOrders(orders));
       } else {
         setName(user.name);
         setEmail(user.email);
       }
     }
-  }, [dispatch, history, userInfo, user, success]);
+  }, [dispatch, history, userInfo, user, success, orders]);
 
   const submitHandler = (e) => {
     e.preventDefault();
