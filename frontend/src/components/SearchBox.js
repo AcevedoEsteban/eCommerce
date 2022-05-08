@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Form, Button } from "react-bootstrap";
 
+// eslint-disable-next-line no-unused-vars
 // eslint-disable-next-line react/prop-types
 const SearchBox = ({ history }) => {
   const [keyword, setKeyword] = useState("");
@@ -15,7 +16,6 @@ const SearchBox = ({ history }) => {
       history.push("/");
     }
   };
-
   return (
     <Form onSubmit={submitHandler} inline>
       <Form.Control
