@@ -148,6 +148,17 @@ const ProductScreen = ({ history, match }) => {
                     <p>{review.comment}</p>
                   </ListGroup.Item>
                 ))}
+                <ListGroup.Item>
+                  <h2>Write Customer Review</h2>
+                  {userInfo ? (
+                    <h1></h1>
+                  ) : (
+                    <Message>
+                      Please login <Link to="/login">sign in</Link> to write a
+                      review
+                    </Message>
+                  )}
+                </ListGroup.Item>
               </ListGroup>
             </Col>
           </Row>
