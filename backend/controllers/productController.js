@@ -9,7 +9,7 @@ const getProducts = asyncHandler(async (req, res) => {
     ? {
         name: {
           $regex: req.query.keyword,
-          $option: "i",
+          $options: "i",
         },
       }
     : {};

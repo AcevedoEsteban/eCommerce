@@ -16,7 +16,7 @@ const HomeScreen = ({ match }) => {
 
   useEffect(() => {
     dispath(listProducts(keyword));
-  }, [dispath]);
+  }, [dispath, keyword]);
 
   return (
     <>
