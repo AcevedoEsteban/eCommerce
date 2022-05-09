@@ -6,13 +6,16 @@ import Message from "../components/Message";
 import Loader from "../components/Loader";
 import { listProducts } from "../actions/productActions";
 
-const HomeScreen = () => {
+// eslint-disable-next-line react/prop-types
+const HomeScreen = ({ match }) => {
+  // eslint-disable-next-line react/prop-types
+  const keyword = match.params.keyword;
   const dispath = useDispatch();
   const productList = useSelector((state) => state.productList);
   const { loading, error, products } = productList;
 
   useEffect(() => {
-    dispath(listProducts());
+    dispath(listProducts(keyword));
   }, [dispath]);
 
   return (
