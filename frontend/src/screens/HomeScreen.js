@@ -4,19 +4,22 @@ import { Row, Col } from "react-bootstrap";
 import Product from "../components/Product";
 import Message from "../components/Message";
 import Loader from "../components/Loader";
+import Paginate from "../components/Paginate";
 import { listProducts } from "../actions/productActions";
 
 // eslint-disable-next-line react/prop-types
 const HomeScreen = ({ match }) => {
   // eslint-disable-next-line react/prop-types
   const keyword = match.params.keyword;
+  // eslint-disable-next-line react/prop-types
+  const pageNumber = match.params.pageNumber || 1;
   const dispath = useDispatch();
   const productList = useSelector((state) => state.productList);
-  const { loading, error, products } = productList;
+  const { loading, error, products, page, pages } = productList;
 
   useEffect(() => {
-    dispath(listProducts(keyword));
-  }, [dispath, keyword]);
+    dispath(listProducts(keyword, pageNumber));
+  }, [dispath, keyword, pageNumber]);
 
   return (
     <>
@@ -26,13 +29,20 @@ const HomeScreen = ({ match }) => {
       ) : error ? (
         <Message variant="danger">{error}</Message>
       ) : (
-        <Row>
-          {products.map((product) => (
-            <Col key={product._id} sm={12} md={6} lg={4} lx={3}>
-              <Product product={product} />
-            </Col>
-          ))}
-        </Row>
+        <>
+          <Row>
+            {products.map((product) => (
+              <Col key={product._id} sm={12} md={6} lg={4} lx={3}>
+                <Product product={product} />
+              </Col>
+            ))}
+          </Row>
+          <Paginate
+            pages={pages}
+            page={page}
+            keyword={keyword ? keyword : ""}
+          />
+        </>
       )}
     </>
   );
