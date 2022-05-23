@@ -21,33 +21,45 @@ h2 {
 }
 
 /* carousel */
-.carousel-item-next,
-.carousel-item-prev,
+.carousel-item-next
+{ background-image: linear-gradient(to bottom,#2c4053 0,#2c4053 100%);
+}
+.carousel-item-prev{
+  background-image: linear-gradient(to bottom,#2c4053 0,#2c4053 100%);
+}
 .carousel-item.active {
+  background-image: linear-gradient(to bottom,#2c4053 0,#2c4053 100%);
   display: flex;
 }
 .carousel-caption {
   position: absolute;
   top: 0;
+  
 }
 
 .carousel-caption h2 {
   color: #fff;
 }
-
 .carousel img {
   height: 300px;
   padding: 30px;
+  background-image: linear-gradient(to bottom,#2c4053 0,#2c4053 100%);
   margin: 40px;
-  border-radius: 50%;
+  /* border-radius: 50%; */
   margin-left: auto;
   margin-right: auto;
 }
 .carousel a {
+  background-image: linear-gradient(to bottom,#2c4053 0,#2c4053 100%);
   margin: 0 auto;
 }
 @media (max-width: 900px) {
   .carousel-caption h2 {
     font-size: 2.5vw;
+    background-image: linear-gradient(to bottom,#2c4053 0,#2c4053 100%);
   }
+}
+.navbar,
+.navbar-default {
+    background-image: linear-gradient(to bottom,#2c4053 0,#2c4053 100%) !important; /* override background image gradient w/ flat color */
 }
